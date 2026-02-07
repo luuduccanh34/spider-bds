@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest  # ✅ GitHub-hosted runner (FREE)
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
