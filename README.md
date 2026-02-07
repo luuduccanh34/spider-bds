@@ -72,6 +72,85 @@ Format and lint code using `black` and `flake8`:
 pipenv run lint
 ```
 
+## Continuous Integration with GitHub Actions
+
+This project uses GitHub Actions to automate the CI workflow. The CI pipeline includes testing, linting, and building the Docker image to ensure code quality and consistency.
+
+### Setting Up GitHub Actions
+1. Navigate to the `.github/workflows` directory in the repository.
+2. Create a new workflow file (e.g., `ci.yml`) to define the CI pipeline.
+3. Use the following video as a reference for setting up the workflow: [GitHub Actions Tutorial](https://www.youtube.com/watch?v=RgZyX-e6W9E).
+
+### Example Workflow
+Below is an example of a GitHub Actions workflow for this project:
+```yaml
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install pipenv
+        pipenv install --dev
+
+    - name: Run tests
+      run: pipenv run pytest
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install pipenv
+        pipenv install --dev
+
+    - name: Run linting
+      run: pipenv run lint
+
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t spider-bds .
+```
+
+### Benefits
+- Automates testing and linting to catch issues early.
+- Ensures consistent Docker builds.
+- Provides feedback directly in pull requests.
+
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
