@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+# --- Core Data Engineering ---
+# Using specific minor versions ensures stability in your data pipelines
+pandas = "*"
+numpy = "*"
+google-cloud-storage = "*"
+google-cloud-bigquery = "*"
+python-dotenv = "*"
+pyarrow = "*"
+
+[dev-packages]
+# --- Testing & Quality ---
+pytest = "*"
+pytest-cov = "*"      # For test coverage reports
+black = "*"           # Code formatter
+flake8 = "*"          # Linter
+ipykernel = "*"       # To use this environment in Jupyter/VS Code notebooks
+
+[requires]
+python_version = "3.12"
+
+[scripts]
+test = "pytest tests/"
+lint = "black . && flake8"
+run-agent = "python main_agent.py"
