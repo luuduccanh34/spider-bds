@@ -3,7 +3,8 @@ name: Build and Push to GHCR
 on:
   push:
     branches:
-      - main
+      #- main # Uncomment to trigger on pushes to main branch
+      - trungnp/set-up-github-actions-cicd # For testing purpose
 
 jobs:
   build-and-push:
@@ -22,7 +23,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GH_TOKEN }}
+          password: ${{ secrets.KUBECONFIG }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
